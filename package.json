@@ -11,13 +11,12 @@
     "build": "grunt"
   },
   "author": {
-    "name": "Hakim El Hattab",
-    "email": "hakim.elhattab@gmail.com",
-    "web": "http://hakim.se"
+    "name": "Lucas De Yarza Sancho",
+    "email": "lucasyarza@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/hakimel/reveal.js.git"
+    "url": "https://github.com/deyarza/design-si.git"
   },
   "engines": {
     "node": ">=4.0.0"
