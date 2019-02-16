@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<!--What is agile-->
+				<section>
+					<section>
+						<img style="background:none; border:none; box-shadow:none;" src="resources/exercise2.1/whatisagile.png" alt="What is agile">
+					</section>
+					<section id="fragments">
+						<h2>Agile is not a methodology</h2>
+						<h3 class="fragment">Agile has not</h3>
+						<span style="display: inline-block;" class="fragment fade-right"><img height="400" style="background:none; border:none; box-shadow:none;" src="resources/exercise2.1/Methods.png" alt="Methods"></span>
+						<span style="display: inline-block;" class="fragment fade-left"><img height="400" style="background:none; border:none; box-shadow:none;" src="resources/exercise2.1/Procedures.png" alt="Procedures"></span>
+					</section>
+					<section>
+						<span style="display: inline-block;" class="fragment fade-left" data-fragment-index="3"><img height="100" style="background:none; border:none; box-shadow:none; margin: 0px" src="resources/exercise2.1/Top.png" alt="Procedures"></span>
+						<span style="display: inline-block;" class="fragment fade-left" data-fragment-index="2"><img height="100" style="background:none; border:none; box-shadow:none; margin: 0px" src="resources/exercise2.1/Practices.png" alt="Procedures"></span>
+						<span style="display: inline-block;" class="fragment fade-left" data-fragment-index="1"><img height="100" style="background:none; border:none; box-shadow:none; margin: 0px" src="resources/exercise2.1/Principles.png" alt="Procedures"></span>
+						<span style="display: inline-block;" class="fragment fade-left" data-fragment-index="0"><img height="100" style="background:none; border:none; box-shadow:none; margin: 0px" src="resources/exercise2.1/Values.png" alt="Procedures"></span>
+					</section>
+					<section>
+						<h2>Objetive</h2>
+						<p>In order to adapt the way of working to the conditions of the project, achieving flexibility and immediacy in the response to adapt the project and its development to the specific circumstances of the environment.</p>
+					</section>
+				</section>
+				<!--Scrum-->
+				<section>
+				</section>
+				<!--Jira-->
+				<section>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
