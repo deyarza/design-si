@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Exercise3.1</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/moon.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<img height="100" style="position: fixed; top: 20px; left: 20px;" src="resources/exercise2.1/logo1.png" alt="Logo USJ">
+		<div class="reveal">
+			<div class="slides">
+				<section data-transition="convex">
+					<section>
+						<h1>What is ESB?</h1>
+					</section>
+					<section>
+						<h2>Enterprise Service Bus</h2>
+						<ul>
+							<li>Fundamentally an architecture</li>
+							<li>Set of rules and principles for integrating numerous applications together</li>
+						</ul>
+					</section>
+					<section>
+						<h2>core concept</h2>
+						<p>Integrate different applications by putting a communication bus between them and then enable each application to talk to the bus</p>
+						<br>
+						<p>This decouples systems from each other</p>
+					</section>
+					<section>
+						<h2>Implementation</h2>
+						<ul>
+							<li>Usually achieved using a messaging server like JMS or AMQP</li>
+							<li>The data that travels on the bus is a canonical format and is almost always XML</li>
+							<li>There is an "adapter" between the application and the bus that marshals data between the two parties</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Integration core principles</h2>
+						<ul>
+							<li>Orchestration</li>
+							<li>Transformation</li>
+							<li>Transportation</li>
+							<li>Mediation</li>
+							<li>Non-functional consistency</li>
+						</ul>
+					</section>
+				</section>
+				<section data-transition="convex">
+					<section>
+						<img style="background:none; border:none; box-shadow:none;" src="resources/exercise5.1/red_hat_fuse.png" alt="">
+					</section>
+					<section>
+						<p>More than an enterprise service bus</p>
+						<p>Lightweight open source integration platform based on Apache ServiceMix</p>
+						<p>Available on premise or in the cloud</p>
+					</section>
+					<section>
+						<h2>Features and Benefits</h2>
+					</section>
+					<section>
+						<h3>Apache ActiveMQ</h3>
+						<p>A fast, open source message broker that supports JMS as well as clients written in other languages like C and Python</p>
+					</section>
+					<section>
+						<h3>Apache Camel</h3>
+						<p>An open source framework that provides implementations of tried and true EIPS (Enterprise Integration Patterns). This allows developers to leverage pre-existing solutions to frequently encountered coding challenges related to enterprise integration</p>
+					</section>
+					<section>
+						<h3>Apache CFX</h3>
+						<p>An open source web services framework, which provides for communication using various standards such as JAX-WS and JAX-RS, HTTP and FTP, as well as different formats like JSON, XML, CSV, etc</p>
+					</section>
+					<section>
+						<h3>Apache Karaf</h3>
+						<p>An OSGI runtime container for deploying applications</p>
+					</section>
+					<section>
+						<h3>Fabric8</h3>
+						<p>An orchestration tool for large middleware deployments</p>
+					</section>
+				</section>
+				<section data-transition="convex">
+					<section>
+						<img style="background:none; border:none; box-shadow:none;" src="resources/exercise5.1/mule-esb.png" alt="">
+					</section>
+					<section>
+						<p>Java-based enterprise service bus</p>
+						<p>open source and like most ESBs, allows for the integration of systems via JMS, Web Services, HTTP, JDBC, and more</p>
+					</section>
+					<section>
+						<h2>Features and Benefits</h2>
+					</section>
+					<section>
+						<h3>AMQP</h3>
+						<p>Advanced Message Queuing Protocol</p>
+						<p>Support is based on the RabbitMQ Java Client</p>
+					</section>
+					<section>
+						<h3>Routers</h3>
+						<p>MuleSoft uses routers to split, combine, reorder, evaluate, and broadcast messages</p>
+					</section>
+					<section>
+						<h3>Anypoint Connectors</h3>
+						<p>Pre-built protocol, database, transport, and database connectors. You can also build your own if needed</p>
+					</section>
+					<section>
+						<h3>Mule Runtime Engine</h3>
+						<p>The heart of the MuleSoft Anypoint platform. Deployable in the cloud or on premise</p>
+					</section>
+					<section>
+						<h3>Mule Runtime Manager</h3>
+						<p>Allows for the deployment, monitoring, and troubleshooting of Mule instances</p>
+					</section>
+				</section>
+				<section data-transition="convex">
+					<section>
+						<img style="background:none; border:none; box-shadow:none;" src="resources/exercise5.1/BizTalk-Banner.png" alt="">
+					</section>
+					<section>
+						<p>Biztalk is Microsoft’s Inter-Organizational Middleware System basically an ESB</p>
+						<p>Allows developers to write their integration pieces in Visual Studio</p>
+					</section>
+					<section>
+						<h2>Features and Benefits</h2>
+					</section>
+					<section>
+						<h3>MSMQ</h3>
+						<p>Microsoft Message Queuing</p>
+						<p>First released in 1997, this message queue implementation is still available for installation on current versions of Windows Server</p>
+					</section>
+					<section>
+						<h3>Routing</h3>
+						<p>Message/routing specifications are implemented through XML, but generally this XML is generated using graphical tools</p>
+					</section>
+					<section>
+						<h3>Adapters</h3>
+						<p>BizTalk has a variety of built-in adapters. As expected, has great adapter support for Microsoft technologies such as the various WCF protocols</p>
+					</section>
+					<section>
+						<h3>BizTalk Server</h3>
+						<p>BizTalk requires IIS (Internet Information Services) for various functionality such as HTTP, SOAP, SSL and more. Typically, this is deployed on Windows Server</p>
+					</section>
+					<section>
+						<h3>BizTalk Server Administration Console</h3>
+						<p>This is a MMC (Microsoft Management Console) that allows for extensive configuration and management of the server</p>
+					</section>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
