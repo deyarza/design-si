@@ -56,6 +56,21 @@
 							</code>
 						</pre>
 					</section>
+					<section data-markdown>
+							<textarea data-template>
+								```xml
+								<email:imap-config name="Email_IMAP" doc:name="Email IMAP" doc:id="a7bfbe17-2353-4c8b-9343-3eb885f76501" >
+									<email:imaps-connection host="imap.gmail.com"
+										port="993" user="usjmule@gmail.com"
+										password="mule123456">
+										<tls:context>
+											<tls:trust-store insecure="true"/>
+										</tls:context>
+									</email:imaps-connection>
+								</email:imap-config>
+								```
+							</textarea>
+						</section>
 					<section>
 						<h2>Email SMPT</h2>
 						<pre>
