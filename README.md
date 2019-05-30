@@ -11,3 +11,4 @@
 - [Exercise4.1](https://deyarza.github.io/design-si/exercise4.1)
 ## Unit 5
 - [Exercise5.1](https://deyarza.github.io/design-si/exercise5.1)
+- [Exercise5.2](https://deyarza.github.io/design-si/exercise5.2)
