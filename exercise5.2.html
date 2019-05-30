@@ -1,0 +1,290 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Exercise5.2</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/moon.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<img height="100" style="position: fixed; top: 20px; left: 20px;" src="resources/exercise2.1/logo1.png" alt="Logo USJ">
+		<div class="reveal">
+			<div class="slides">
+				<section data-transition="convex">
+					<section>
+						<h1>MULE ESB</h1>
+					</section>
+					<section>
+						<h2>Diagram</h2>
+						<!-- Here diagram -->
+					</section>
+				</section>
+				<section data-transition="convex">
+					<section>
+						<h1>Global Elements</h1>
+					</section>
+					<section>
+						<h2>Email IMAP</h2>
+						<pre>
+							<code>
+								<!--  -->
+								<email:imap-config name="Email_IMAP" doc:name="Email IMAP" doc:id="a7bfbe17-2353-4c8b-9343-3eb885f76501" >
+									<email:imaps-connection host="imap.gmail.com"
+										port="993" user="usjmule@gmail.com"
+										password="mule123456">
+										<tls:context>
+											<tls:trust-store insecure="true"/>
+										</tls:context>
+									</email:imaps-connection>
+								</email:imap-config>
+								<!--  -->
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h2>Email SMPT</h2>
+						<pre>
+							<code>
+								<!--  -->
+								<email:smtp-config name="Email_SMTP" doc:name="Email SMTP" doc:id="e79f0e94-94b7-40b4-be5f-30bf8511c7d0" >
+									<email:smtps-connection host="smtp.gmail.com"
+										port="465" password="mule123456"
+										user="usjmule@gmail.com">
+										<tls:context>
+											<tls:trust-store insecure="true"/>
+										</tls:context>
+									</email:smtps-connection>
+								</email:smtp-config>
+								<!--  -->
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h2>HTTP Request</h2>
+						<pre>
+							<code>
+								<!--  -->
+								<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="15c4572a-8687-402f-b3d2-ccd68381e491" basePath="/api/timezone">
+									<http:request-connection host="worldtimeapi.org" />
+								</http:request-config>
+								<!--  -->
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h2>Database</h2>
+						<pre>
+							<code>
+								<!--  -->
+								<db:config name="Database_Config" doc:name="Database Config" doc:id="91388075-1071-481a-8e10-4f6bf4f294c2" >
+									<db:my-sql-connection host="ec2-54-71-15-215.us-west-2.compute.amazonaws.com" port="3306" user="dbuser" password="dbpassword" database="devdb" />
+								</db:config>
+								<!--  -->
+							</code>
+						</pre>
+					</section>
+				</section>
+				<section data-transition="convex">
+					<section>
+						<h1>FLOW</h1>
+					</section>
+					<section>
+						<!-- On new email -->
+						<pre>
+							<code>
+								<!--  -->
+								<email:listener-imap doc:name="On New Email - IMAP" doc:id="2156a0df-3037-4dd2-8449-b489be0db346" config-ref="Email_IMAP">
+									<scheduling-strategy >
+										<fixed-frequency />
+									</scheduling-strategy>
+								</email:listener-imap>
+								<!--  -->
+							</code>
+						</pre>
+					</section>
+					<section>
+						<!-- Transform 1 -->
+						<pre>
+							<code>
+								<!--  -->
+								<ee:transform doc:name="Transform Message" doc:id="c879a46e-bcb5-4ffc-bd43-0395034e3422">
+									<ee:message>
+									</ee:message>
+									<ee:variables >
+										<ee:set-variable variableName="message" >
+											<![CDATA[
+												%dw 2.0
+												output application/json
+												var body = payload.body
+												var productid = attributes.subject
+												var address = attributes.fromAddresses
+												---
+												{
+													from: address,
+													product: productid,
+													message: body
+												}
+											]]>			
+										</ee:set-variable>
+									</ee:variables>
+								</ee:transform>
+								<!--  -->
+							</code>
+						</pre>
+					</section>
+					<section>
+						<!-- HTTP req -->
+						<pre>
+							<code>
+								<!--  -->
+								<http:request method="GET" doc:name="Request" doc:id="6baaef83-b365-4a5b-9b75-a88e33867f9d" config-ref="HTTP_Request_configuration" path="/Europe/Madrid"/>
+								<!--  -->
+							</code>
+						</pre>
+					</section>
+					<section>
+						<!-- Transform 2 -->
+						<pre>
+							<code>
+								<!--  -->
+								<ee:transform doc:name="Transform Message" doc:id="0629b00c-4599-4fd9-a1fa-a1cbf89ee5d3" >
+									<ee:message >
+									</ee:message>
+									<ee:variables >
+										<ee:set-variable variableName="message2" >
+											<![CDATA[
+												%dw 2.0
+												output application/json
+												---
+												{
+													datetime: payload.datetime,
+													from: vars.message.from[0],
+													product: vars.message.product,
+													message: vars.message.message
+												}
+											]]>
+										</ee:set-variable>
+									</ee:variables>
+								</ee:transform>
+								<!--  -->
+							</code>
+						</pre>
+					</section>
+					<section>
+						<!-- DB -->
+						<pre>
+							<code>
+								<!--  -->
+								<db:select doc:name="Select" doc:id="b84f8ca3-3482-468f-b006-b5577efd9c08" config-ref="Database_Config">
+									<db:sql >SELECT product_name FROM products WHERE product_id =  :id;</db:sql>
+									<db:input-parameters ><![CDATA[#[{'id' : vars.message.product}]]]></db:input-parameters>
+								</db:select>
+								<!--  -->
+							</code>
+						</pre>
+					</section>
+					<section>
+						<!-- Transform 3 -->
+						<pre>
+							<code>
+								<!--  -->
+								<ee:transform doc:name="Transform Message" doc:id="ae54d96c-34cc-488b-83aa-848ea363d998" >
+									<ee:message >
+									</ee:message>
+									<ee:variables >
+										<ee:set-variable variableName="message3" >
+											<![CDATA[
+												%dw 2.0
+												output application/json
+												---
+												{
+													datetime: vars.message2.datetime,
+													from: vars.message2.from,
+													product: payload[0].product_name,
+													message: vars.message2.message
+												}
+											]]>			
+										</ee:set-variable>
+									</ee:variables>
+								</ee:transform>
+								<!--  -->
+							</code>
+						</pre>
+					</section>
+					<section>
+						<!-- Insert -->
+						<pre>
+							<code>
+								<!--  -->
+								<db:insert doc:name="Insert" doc:id="81a2bd33-5870-4650-aab2-164aadf8ec35" config-ref="Database_Config">
+									<db:sql >INSERT INTO incident VALUES(:fecha, :description)</db:sql>
+									<db:input-parameters >
+										<![CDATA[
+										#[{ fecha: vars.message3.datetime,
+										description: vars.message3.message
+										}]
+									]]>
+									</db:input-parameters>
+								</db:insert>
+								<!--  -->
+							</code>
+						</pre>
+					</section>
+				</section>
+				<section>
+					<!-- Send email -->
+					<pre>
+						<code>
+							<!--  -->
+							<email:send doc:name="Send" doc:id="74e0a71f-1a54-4aa6-9145-4ab559c0c15f" config-ref="Email_SMTP" subject="#[vars.message3.datetime]" fromAddress="usjmule@gmail.com">
+								<email:to-addresses>
+									<email:to-address value="lucasyarza@gmail.com"/>
+									<email:to-address value="usjlucas@gmail.com"/>
+								</email:to-addresses>
+								<email:body>
+									<email:content ><![CDATA[#[vars.message3]]]></email:content>
+								</email:body>
+							</email:send>
+							<!--  -->
+						</code>
+					</pre>
+				</section>
+				<section data-transition="convex">
+					
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
